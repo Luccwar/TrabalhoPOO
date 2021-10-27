@@ -1,11 +1,20 @@
 package classes.java;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 
 public abstract class Pessoa {
 	protected String nome;
-	protected String datanasc;
+	protected int diaNasc;
+	protected int mesNasc;
+	protected int anoNasc;
 	protected String cpf;
+	
+	public Pessoa()
+	{
+		
+	}
 	
 	public String getNome() {
 		return nome;
@@ -13,11 +22,23 @@ public abstract class Pessoa {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getDatanasc() {
-		return datanasc;
+	public int getDiaNasc() {
+		return diaNasc;
 	}
-	public void setDatanasc(String datanasc) {
-		this.datanasc = datanasc;
+	public void setDiaNasc(int diaNasc) {
+		this.diaNasc = diaNasc;
+	}
+	public int getMesNasc() {
+		return mesNasc;
+	}
+	public void setMesNasc(int mesNasc) {
+		this.mesNasc = mesNasc;
+	}
+	public int getAnoNasc() {
+		return anoNasc;
+	}
+	public void setAnoNasc(int anoNasc) {
+		this.anoNasc = anoNasc;
 	}
 	public String getCpf() {
 		return cpf;
@@ -26,9 +47,11 @@ public abstract class Pessoa {
 		this.cpf = cpf;
 	}
 	
+	
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(cpf, datanasc, nome);
+		return Objects.hash(anoNasc, cpf, diaNasc, mesNasc, nome);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -39,12 +62,23 @@ public abstract class Pessoa {
 		if (getClass() != obj.getClass())
 			return false;
 		Pessoa other = (Pessoa) obj;
-		return Objects.equals(cpf, other.cpf) && Objects.equals(datanasc, other.datanasc)
-				&& Objects.equals(nome, other.nome);
+		return anoNasc == other.anoNasc && Objects.equals(cpf, other.cpf) && diaNasc == other.diaNasc
+				&& mesNasc == other.mesNasc && Objects.equals(nome, other.nome);
 	}
+	
+	
 	@Override
 	public String toString() {
-		return "Pessoa [nome=" + nome + ", datanasc=" + datanasc + ", cpf=" + cpf + "]";
+		return "Pessoa [nome=" + nome + ", diaNasc=" + diaNasc + ", mesNasc=" + mesNasc + ", anoNasc=" + anoNasc
+				+ ", cpf=" + cpf + "]";
+	}
+	
+	public int pessoaIdade(LocalDate dataNascimento, LocalDate dataAtual) {
+		if ((dataNascimento != null) && (dataAtual != null)) {
+            return Period.between(dataNascimento, dataAtual).getYears();
+        } else {
+            return 0;
+        }
 	}
 	
 	

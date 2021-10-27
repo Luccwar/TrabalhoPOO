@@ -3,17 +3,31 @@ package classes.java;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Admin extends Pessoa {
-	private String[] permissões;
+import interfaces.PermitirAcesso;
+
+public class Admin extends Pessoa implements PermitirAcesso{
+	private String[] permissoes;
 	private String login;
 	private String email;
 	private String emailSecundario;
 	private String senha;
-	public String[] getPermissões() {
-		return permissões;
+	
+	public Admin()
+	{
+		
 	}
-	public void setPermissões(String[] permissões) {
-		this.permissões = permissões;
+	
+	public Admin(String login, String senha) {
+		this.login = login;
+		this.senha = senha;
+		
+	}
+	
+	public String[] getPermissoes() {
+		return permissoes;
+	}
+	public void setPermissoes(String[] permissoes) {
+		this.permissoes = permissoes;
 	}
 	public String getLogin() {
 		return login;
@@ -43,7 +57,7 @@ public class Admin extends Pessoa {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Arrays.hashCode(permissões);
+		result = prime * result + Arrays.hashCode(permissoes);
 		result = prime * result + Objects.hash(email, emailSecundario, login, senha);
 		return result;
 	}
@@ -57,14 +71,25 @@ public class Admin extends Pessoa {
 			return false;
 		Admin other = (Admin) obj;
 		return Objects.equals(email, other.email) && Objects.equals(emailSecundario, other.emailSecundario)
-				&& Objects.equals(login, other.login) && Arrays.equals(permissões, other.permissões)
+				&& Objects.equals(login, other.login) && Arrays.equals(permissoes, other.permissoes)
 				&& Objects.equals(senha, other.senha);
 	}
 	@Override
 	public String toString() {
-		return "Admin [permissões=" + Arrays.toString(permissões) + ", login=" + login + ", email=" + email
+		return "Admin [permissoes=" + Arrays.toString(permissoes) + ", login=" + login + ", email=" + email
 				+ ", emailSecundario=" + emailSecundario + ", senha=" + senha + "]";
 	}
+
+	@Override
+	public boolean autenticar(String login, String senha) {
+		return this.login.equals(login) && this.senha.equals(senha);
+		
+	}
+
 	
+	public boolean autenticar() {
+		
+		return false;
+	}
 	
 }
